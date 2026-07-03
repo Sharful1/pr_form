@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purchase Requisition Form</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #1B3A5C;
+    --primary-light: #2A5285;
+    --gold: #C9A84C;
+    --gold-light: #F5EAC8;
+    --red: #C0392B;
+    --green: #27AE60;
+    --gray-50: #F8F9FA;
+    --gray-100: #F0F2F5;
+    --gray-200: #E0E4EA;
+    --gray-400: #9BA5B4;
+    --gray-600: #5A6478;
+    --gray-800: #2D3748;
+    --white: #FFFFFF;
+    --border: #DDE2EA;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gray-100);
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+    color: var(--gray-800);
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── DOCUMENT CARD ── */
+  .document {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    background: var(--primary);
+    padding: 0;
+  }
+
+  .header-top {
+    background: var(--primary-light);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .hotel-name {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .hotel-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .header-badge {
+    background: var(--gold);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .header-bottom {
+    padding: 20px 32px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-left { }
+
+  .doc-title {
+    color: var(--white);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .doc-subtitle {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .header-center {
+    text-align: center;
+  }
+
+  .pr-number-display {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+
+  .pr-number-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .pr-number-value {
+    color: var(--gold);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .meta-label {
+    color: rgba(255,255,255,0.5);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .meta-value {
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    background: var(--gold-light);
+    border-bottom: 1px solid var(--gold);
+    padding: 8px 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .status-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8B6914;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── BODY ── */
+  .doc-body {
+    padding: 28px 32px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 4px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  /* ── FORM GRID ── */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .form-group.span-2 { grid-column: span 2; }
+  .form-group.span-3 { grid-column: span 3; }
+
+  label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray-600);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  label .required {
+    color: var(--red);
+    margin-left: 2px;
+  }
+
+  input, select, textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--gray-800);
+    background: var(--gray-50);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 12px;
+    transition: all 0.15s;
+    outline: none;
+    width: 100%;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(27,58,92,0.08);
+  }
+
+  input[readonly] {
+    background: var(--gray-100);
+    color: var(--gray-400);
+    cursor: not-allowed;
+  }
+
+  textarea { resize: vertical; min-height: 70px; }
+
+  select { cursor: pointer; }
+
+  /* ── PRIORITY SELECTOR ── */
+  .priority-group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .priority-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: var(--gray-50);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    letter-spacing: 1px;
+  }
+
+  .priority-btn.low { color: #27AE60; }
+  .priority-btn.medium { color: #E67E22; }
+  .priority-btn.high { color: var(--red); }
+
+  .priority-btn.low.active {
+    background: #D4EDDA;
+    border-color: #27AE60;
+  }
+
+  .priority-btn.medium.active {
+    background: #FDEBD0;
+    border-color: #E67E22;
+  }
+
+  .priority-btn.high.active {
+    background: #FDECEA;
+    border-color: var(--red);
+  }
+
+  input[name="priority"] { display: none; }
+
+  /* ── LINE ITEMS TABLE ── */
+  .items-wrapper {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .items-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .items-table thead {
+    background: var(--primary);
+  }
+
+  .items-table thead th {
+    padding: 10px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .items-table thead th:last-child { border-right: none; }
+
+  .items-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+
+  .items-table tbody tr:hover { background: var(--gray-50); }
+  .items-table tbody tr:last-child { border-bottom: none; }
+
+  .items-table tbody td {
+    padding: 6px 6px;
+    vertical-align: middle;
+    border-right: 1px solid var(--border);
+  }
+
+  .items-table tbody td:last-child { border-right: none; }
+
+  .item-no {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: center;
+    width: 36px;
+  }
+
+  .items-table td input,
+  .items-table td select {
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .items-table td input:focus,
+  .items-table td select:focus {
+    background: var(--white);
+    border: 1.5px solid var(--primary);
+    box-shadow: 0 0 0 2px rgba(27,58,92,0.08);
+  }
+
+  .total-cell {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: right;
+    padding-right: 12px !important;
+    white-space: nowrap;
+  }
+
+  .delete-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: none;
+    color: var(--gray-400);
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.15s;
+    margin: 0 auto;
+  }
+
+  .delete-btn:hover {
+    background: #FDECEA;
+    color: var(--red);
+  }
+
+  /* ── TABLE FOOTER ── */
+  .table-footer {
+    background: var(--gray-50);
+    border-top: 2px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .add-item-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1.5px dashed var(--primary);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .add-item-btn:hover {
+    background: var(--primary);
+    color: var(--white);
+    border-style: solid;
+  }
+
+  .grand-total-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .grand-total-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-600);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .grand-total-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .grand-total-currency {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-right: 4px;
+  }
+
+  /* ── SIGNATURES ── */
+  .signatures-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .sig-box {
+    text-align: center;
+  }
+
+  .sig-line {
+    height: 48px;
+    border-bottom: 1.5px solid var(--gray-400);
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .sig-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-600);
+    letter-spacing: 0.5px;
+  }
+
+  .sig-title {
+    font-size: 10px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    background: var(--gray-50);
+    border-top: 2px solid var(--border);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-note {
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.5px;
+  }
+
+  .submit-btn {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 32px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .submit-btn:hover {
+    background: var(--primary-light);
+    box-shadow: 0 4px 16px rgba(27,58,92,0.3);
+    transform: translateY(-1px);
+  }
+
+  .reset-btn {
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--gray-600);
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .reset-btn:hover {
+    border-color: var(--gray-400);
+    color: var(--gray-800);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    max-width: 960px;
+    margin: 0 auto 14px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+    border: 1.5px solid;
+  }
+
+  .btn-preview {
+    background: var(--white);
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .btn-preview:hover {
+    background: var(--primary);
+    color: var(--white);
+  }
+
+  .btn-print {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  .btn-print:hover {
+    background: var(--primary-light);
+    box-shadow: 0 4px 12px rgba(27,58,92,0.25);
+  }
+
+  /* ── PREVIEW MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 2000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-y: auto;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-toolbar {
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-toolbar-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-800);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .modal-toolbar-title span {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gray-400);
+    letter-spacing: 1px;
+  }
+
+  .modal-actions { display: flex; gap: 8px; }
+
+  .modal-btn {
+    padding: 7px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    border: 1.5px solid;
+    transition: all 0.15s;
+  }
+
+  .modal-btn-close {
+    background: none;
+    color: var(--gray-600);
+    border-color: var(--border);
+  }
+
+  .modal-btn-close:hover { border-color: var(--gray-400); }
+
+  .modal-btn-print {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  .modal-btn-print:hover { background: var(--primary-light); }
+
+  /* ── PRINT PREVIEW CONTENT ── */
+  .preview-content {
+    padding: 32px;
+  }
+
+  .preview-header {
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .preview-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .preview-hotel-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .preview-hotel-sub {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .preview-doc-info {
+    text-align: right;
+  }
+
+  .preview-doc-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .preview-pr-number {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  .preview-date {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+
+  .preview-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background: var(--gray-50);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .preview-meta-item {}
+
+  .preview-meta-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--gray-400);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .preview-meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-800);
+  }
+
+  .priority-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+
+  .priority-LOW { background: #D4EDDA; color: #155724; }
+  .priority-MEDIUM { background: #FDEBD0; color: #8B4513; }
+  .priority-HIGH { background: #FDECEA; color: var(--red); }
+
+  .preview-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    border-bottom: 1.5px solid var(--primary);
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+  }
+
+  .preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-bottom: 20px;
+  }
+
+  .preview-table thead tr {
+    background: var(--primary);
+  }
+
+  .preview-table thead th {
+    padding: 8px 10px;
+    color: rgba(255,255,255,0.9);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  .preview-table tbody td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--gray-800);
+  }
+
+  .preview-table tbody tr:nth-child(even) td {
+    background: var(--gray-50);
+  }
+
+  .preview-table tfoot td {
+    padding: 10px 10px;
+    border-top: 2px solid var(--primary);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .preview-total-label {
+    text-align: right;
+    color: var(--gray-600);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  .preview-total-value {
+    color: var(--primary);
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .preview-notes {
+    background: var(--gray-50);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .preview-notes strong {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 4px;
+  }
+
+  .preview-sigs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .preview-sig {
+    text-align: center;
+  }
+
+  .preview-sig-line {
+    height: 44px;
+    border-bottom: 1.5px solid var(--gray-400);
+    margin-bottom: 6px;
+  }
+
+  .preview-sig-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+
+  .preview-sig-title {
+    font-size: 9px;
+    color: var(--gray-400);
+    margin-top: 1px;
+  }
+
+  .preview-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .preview-footer-text {
+    font-size: 9px;
+    color: var(--gray-400);
+    letter-spacing: 0.5px;
+  }
+
+  .preview-footer-stamp {
+    font-size: 9px;
+    color: var(--gray-400);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    body {
+      background: white !important;
+      padding: 0 !important;
+    }
+
+    .toolbar,
+    .doc-header,
+    .status-bar,
+    .doc-body,
+    .doc-footer,
+    .modal-toolbar,
+    .modal-overlay {
+      display: none !important;
+    }
+
+    .print-area {
+      display: block !important;
+    }
+
+    .modal-overlay {
+      position: static !important;
+      background: none !important;
+      padding: 0 !important;
+    }
+
+    .modal {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+
+    .preview-content {
+      padding: 20px !important;
+    }
+  }
+
+  .print-area { display: none; }
+
+  /* ── SUCCESS TOAST ── */
+  .toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: var(--primary);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    display: none;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    border-left: 4px solid var(--gold);
+    max-width: 320px;
+  }
+
+  .toast.show {
+    display: flex;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .doc-body { padding: 20px; }
+    .header-bottom { grid-template-columns: 1fr; text-align: center; }
+    .header-right { text-align: center; }
+    .header-meta { align-items: center; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+    .form-group.span-2, .form-group.span-3 { grid-column: span 1; }
+    .signatures-grid { grid-template-columns: repeat(2, 1fr); }
+    .header-top { flex-direction: column; gap: 10px; text-align: center; }
+    .doc-footer { flex-direction: column; }
+    .items-table { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">
+  ✅ Purchase Requisition submitted successfully!
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button type="button" class="toolbar-btn btn-preview" onclick="openPreview()">
+    👁 Preview PR
+  </button>
+  <button type="button" class="toolbar-btn btn-print" onclick="printPR()">
+    🖨 Print PR
+  </button>
+</div>
+
+<!-- PREVIEW MODAL -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal">
+    <div class="modal-toolbar">
+      <div class="modal-toolbar-title">
+        📄 Purchase Requisition Preview
+        <span>Review before printing</span>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-close" onclick="closePreview()">✕ Close</button>
+        <button class="modal-btn modal-btn-print" onclick="printPR()">🖨 Print</button>
+      </div>
+    </div>
+    <div class="preview-content" id="previewContent">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
+<div class="page">
+<form id="prForm">
+<div class="document">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="header-top">
+      <div>
+        <div class="hotel-name">Park Inn by Radisson</div>
+        <div class="hotel-sub">Makkah, Saudi Arabia · Procurement Department</div>
+      </div>
+      <div class="header-badge">Official Document</div>
+    </div>
+
+    <div class="header-bottom">
+      <div class="header-left">
+        <div class="doc-title">Purchase Requisition</div>
+        <div class="doc-subtitle">Internal Request Form</div>
+      </div>
+
+      <div class="header-center">
+        <div class="pr-number-display">
+          <div class="pr-number-label">PR Number</div>
+          <div class="pr-number-value" id="prNumber">PR-2026-001</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="header-meta">
+          <div class="meta-row">
+            <span class="meta-label">Date</span>
+            <span class="meta-value" id="currentDate"></span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Status</span>
+            <span class="meta-value">Draft</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <div class="status-text">Draft — Complete all required fields before submission</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="doc-body">
+
+    <!-- SECTION 1: REQUEST DETAILS -->
+    <div class="section">
+      <div class="section-label">Request Details</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Requester Name <span class="required">*</span></label>
+          <input type="text" name="requesterName" placeholder="Full name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Requester Email <span class="required">*</span></label>
+          <input type="email" name="requesterEmail" placeholder="email@hotel.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Department <span class="required">*</span></label>
+          <select name="department" required>
+            <option value="">Select department</option>
+            <option>F&B Kitchen</option>
+            <option>F&B Restaurant</option>
+            <option>Housekeeping</option>
+            <option>Front Office</option>
+            <option>Sales & Marketing</option>
+            <option>Maintenance</option>
+            <option>Finance</option>
+            <option>HR & Admin</option>
+            <option>Security</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Delivery Location <span class="required">*</span></label>
+          <select name="deliveryLocation" required>
+            <option value="">Select location</option>
+            <option>Main Kitchen</option>
+            <option>Restaurant</option>
+            <option>Housekeeping Store</option>
+            <option>Front Desk</option>
+            <option>Maintenance Store</option>
+            <option>General Store</option>
+            <option>Admin Office</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Required Delivery Date <span class="required">*</span></label>
+          <input type="date" name="deliveryDate" required>
+        </div>
+
+        <div class="form-group">
+          <label>Priority Level <span class="required">*</span></label>
+          <input type="hidden" name="priority" id="priorityValue" value="MEDIUM">
+          <div class="priority-group">
+            <div class="priority-btn low" onclick="setPriority('LOW', this)">LOW</div>
+            <div class="priority-btn medium active" onclick="setPriority('MEDIUM', this)">MEDIUM</div>
+            <div class="priority-btn high" onclick="setPriority('HIGH', this)">HIGH</div>
+          </div>
+        </div>
+
+        <div class="form-group span-3">
+          <label>Additional Notes</label>
+          <textarea name="notes" placeholder="Special instructions, event details, urgency reason..."></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 2: LINE ITEMS -->
+    <div class="section">
+      <div class="section-label">Line Items</div>
+
+      <div class="items-wrapper">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th style="width:40px; text-align:center;">#</th>
+              <th style="width:140px;">Item Group</th>
+              <th>Article Description</th>
+              <th style="width:80px;">Qty</th>
+              <th style="width:90px;">Unit</th>
+              <th style="width:100px;">Last Price</th>
+              <th style="width:110px;">Total Price</th>
+              <th style="width:120px;">Date Wanted</th>
+              <th style="width:60px;">SOH</th>
+              <th style="width:110px;">Notes</th>
+              <th style="width:36px;"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            <!-- Rows injected by JS -->
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <button type="button" class="add-item-btn" onclick="addRow()">
+            + Add Line Item
+          </button>
+          <div class="grand-total-box">
+            <span class="grand-total-label">Grand Total</span>
+            <span class="grand-total-value">
+              <span class="grand-total-currency">SAR</span>
+              <span id="grandTotal">0.00</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: SIGNATURES -->
+    <div class="section">
+      <div class="section-label">Authorisation & Signatures</div>
+      <div class="signatures-grid">
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Department Head</div>
+          <div class="sig-title">Requesting Authority</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Purchasing Manager</div>
+          <div class="sig-title">Procurement Review</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Financial Controller</div>
+          <div class="sig-title">Budget Approval</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">General Manager</div>
+          <div class="sig-title">Final Authorisation</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DOCUMENT FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-note">
+      This document is system-generated · Park Inn by Radisson, Makkah<br>
+      All fields marked <span style="color:var(--red)">*</span> are mandatory · Submitted PRs are final
+    </div>
+    <div class="btn-group">
+      <button type="button" class="reset-btn" onclick="resetForm()">Clear Form</button>
+      <button type="submit" class="submit-btn">
+        ↑ Submit Requisition
+      </button>
+    </div>
+  </div>
+
+</div>
+</form>
+</div>
+
+<script>
+  // ── Item Groups & Articles ──
+  const itemGroups = {
+    "Coffee & Hot Beverages": ["Coffee Arabic", "Coffee Turkish", "Coffee Beans", "Nescafe", "Tea Bags", "Green Tea", "Chamomile Tea"],
+    "Meat & Poultry": ["Chicken Breast", "Chicken Whole", "Beef Tenderloin", "Beef Striploin", "Lamb Chops", "Ground Beef", "Beef Liver"],
+    "Seafood": ["Salmon Fillet", "Shrimp Large", "Shrimp Medium", "Sea Bass", "Tuna Steak", "Calamari"],
+    "Dairy & Cheese": ["Fresh Milk", "Butter Unsalted", "Cream Cheese", "Mozzarella", "Cheddar Cheese", "Heavy Cream", "Yoghurt"],
+    "Vegetables Fresh": ["Tomatoes", "Cucumber", "Lettuce", "Onion", "Garlic", "Bell Pepper", "Mushroom", "Zucchini"],
+    "Fruits Fresh": ["Banana", "Apple", "Orange", "Strawberry", "Watermelon", "Mango", "Grapes"],
+    "Pasta & Grains": ["Spaghetti", "Penne", "Rice Basmati", "Rice Jasmine", "Quinoa", "Couscous", "Oats"],
+    "Soft Drinks & Juice": ["Coca Cola 330ml", "Pepsi 330ml", "Orange Juice", "Apple Juice", "Mineral Water 500ml", "Mineral Water 1.5L"],
+    "Cleaning Chemicals": ["Floor Cleaner", "Toilet Cleaner", "Glass Cleaner", "Dishwashing Liquid", "Disinfectant", "Bleach"],
+    "Housekeeping Supplies": ["Toilet Paper", "Tissue Box", "Hand Soap", "Shampoo", "Conditioner", "Body Lotion", "Shower Gel"],
+    "Stationery": ["A4 Paper", "Ballpoint Pen", "Stapler", "Paper Clips", "Scotch Tape", "Envelopes", "Printer Ink"],
+    "Packaging": ["Takeaway Box", "Paper Bag", "Aluminum Foil", "Cling Wrap", "Disposable Cups", "Napkins"],
+  };
+
+  const units = ["Box", "Kg", "Ltr", "Pcs", "Carton", "Pack", "Dozen", "Bottle", "Can", "Bag", "Roll", "Sheet"];
+
+  // ── PR Number & Date ──
+  function generatePRNumber() {
+    const year = new Date().getFullYear();
+    const num = String(Math.floor(Math.random() * 900) + 100);
+    return `PR-${year}-${num}`;
+  }
+
+  function setDate() {
+    const now = new Date();
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    document.getElementById('currentDate').textContent = now.toLocaleDateString('en-GB', options);
+  }
+
+  document.getElementById('prNumber').textContent = generatePRNumber();
+  setDate();
+
+  // ── Priority Selector ──
+  function setPriority(value, el) {
+    document.querySelectorAll('.priority-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('priorityValue').value = value;
+  }
+
+  // ── Row Counter ──
+  let rowCount = 0;
+
+  function addRow() {
+    rowCount++;
+    const tbody = document.getElementById('itemsBody');
+    const tr = document.createElement('tr');
+    tr.id = `row-${rowCount}`;
+
+    // Build group options
+    let groupOpts = '<option value="">Select group</option>';
+    for (const g of Object.keys(itemGroups)) {
+      groupOpts += `<option>${g}</option>`;
+    }
+
+    // Build unit options
+    let unitOpts = '<option value="">Unit</option>';
+    for (const u of units) {
+      unitOpts += `<option>${u}</option>`;
+    }
+
+    tr.innerHTML = `
+      <td class="item-no">${rowCount}</td>
+      <td>
+        <select onchange="updateArticles(this, ${rowCount})" style="width:130px">
+          ${groupOpts}
+        </select>
+      </td>
+      <td>
+        <select id="article-${rowCount}" style="width:160px">
+          <option value="">Select item group first</option>
+        </select>
+      </td>
+      <td>
+        <input type="number" id="qty-${rowCount}" min="1" placeholder="0"
+          oninput="calcRow(${rowCount})" style="width:70px; text-align:center">
+      </td>
+      <td>
+        <select style="width:82px">
+          ${unitOpts}
+        </select>
+      </td>
+      <td>
+        <input type="number" id="price-${rowCount}" min="0" step="0.01" placeholder="0.00"
+          oninput="calcRow(${rowCount})" style="width:88px; text-align:right">
+      </td>
+      <td class="total-cell" id="total-${rowCount}">SAR 0.00</td>
+      <td>
+        <input type="date" style="width:112px">
+      </td>
+      <td>
+        <input type="number" min="0" placeholder="0" style="width:50px; text-align:center">
+      </td>
+      <td>
+        <input type="text" placeholder="Notes" style="width:100px">
+      </td>
+      <td>
+        <button type="button" class="delete-btn" onclick="removeRow(${rowCount})">✕</button>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  }
+
+  function updateArticles(groupSelect, rowId) {
+    const group = groupSelect.value;
+    const articleSelect = document.getElementById(`article-${rowId}`);
+    articleSelect.innerHTML = '<option value="">Select article</option>';
+    if (group && itemGroups[group]) {
+      itemGroups[group].forEach(a => {
+        const opt = document.createElement('option');
+        opt.textContent = a;
+        articleSelect.appendChild(opt);
+      });
+    }
+  }
+
+  function calcRow(rowId) {
+    const qty = parseFloat(document.getElementById(`qty-${rowId}`)?.value) || 0;
+    const price = parseFloat(document.getElementById(`price-${rowId}`)?.value) || 0;
+    const total = qty * price;
+    const el = document.getElementById(`total-${rowId}`);
+    if (el) el.textContent = `SAR ${total.toFixed(2)}`;
+    calcGrandTotal();
+  }
+
+  function calcGrandTotal() {
+    let grand = 0;
+    for (let i = 1; i <= rowCount; i++) {
+      const el = document.getElementById(`total-${i}`);
+      if (el) {
+        const val = parseFloat(el.textContent.replace('SAR', '').trim()) || 0;
+        grand += val;
+      }
+    }
+    document.getElementById('grandTotal').textContent = grand.toFixed(2);
+  }
+
+  function removeRow(rowId) {
+    const row = document.getElementById(`row-${rowId}`);
+    if (row) row.remove();
+    calcGrandTotal();
+  }
+
+  function resetForm() {
+    if (confirm('Clear all form data?')) {
+      document.getElementById('prForm').reset();
+      document.getElementById('itemsBody').innerHTML = '';
+      rowCount = 0;
+      document.getElementById('grandTotal').textContent = '0.00';
+      document.getElementById('prNumber').textContent = generatePRNumber();
+      setPriority('MEDIUM', document.querySelector('.priority-btn.medium'));
+    }
+  }
+
+  // ── Form Submit ──
+  document.getElementById('prForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+
+    // Here: send data to n8n webhook
+    // fetch('YOUR_N8N_WEBHOOK_URL', { method: 'POST', ... })
+  });
+
+  // ── Init: add first row ──
+  addRow();
+
+  // ── Preview & Print ──
+  function getFormData() {
+    return {
+      prNumber: document.getElementById('prNumber').textContent,
+      date: document.getElementById('currentDate').textContent,
+      requesterName: document.querySelector('[name="requesterName"]').value || '—',
+      requesterEmail: document.querySelector('[name="requesterEmail"]').value || '—',
+      department: document.querySelector('[name="department"]').value || '—',
+      deliveryLocation: document.querySelector('[name="deliveryLocation"]').value || '—',
+      deliveryDate: document.querySelector('[name="deliveryDate"]').value || '—',
+      priority: document.getElementById('priorityValue').value || 'MEDIUM',
+      notes: document.querySelector('[name="notes"]').value || '—',
+    };
+  }
+
+  function getItemRows() {
+    const rows = document.querySelectorAll('#itemsBody tr');
+    const items = [];
+    rows.forEach((tr, i) => {
+      const selects = tr.querySelectorAll('select');
+      const inputs = tr.querySelectorAll('input');
+      const group = selects[0]?.value || '—';
+      const article = selects[1]?.value || '—';
+      const qty = inputs[0]?.value || '0';
+      const unit = selects[2]?.value || '—';
+      const price = inputs[1]?.value || '0';
+      const total = document.getElementById(`total-${i + 1}`)?.textContent || 'SAR 0.00';
+      const dateWanted = inputs[2]?.value || '—';
+      const soh = inputs[3]?.value || '—';
+      const notes = inputs[4]?.value || '—';
+      items.push({ no: i + 1, group, article, qty, unit, price, total, dateWanted, soh, notes });
+    });
+    return items;
+  }
+
+  function buildPreviewHTML() {
+    const d = getFormData();
+    const items = getItemRows();
+    const grand = document.getElementById('grandTotal').textContent;
+
+    let itemRows = '';
+    items.forEach(item => {
+      itemRows += `
+        <tr>
+          <td style="text-align:center;font-weight:600;color:var(--primary)">${item.no}</td>
+          <td>${item.group}</td>
+          <td>${item.article}</td>
+          <td style="text-align:center">${item.qty}</td>
+          <td style="text-align:center">${item.unit}</td>
+          <td style="text-align:right">SAR ${parseFloat(item.price || 0).toFixed(2)}</td>
+          <td style="text-align:right;font-weight:600;color:var(--primary)">${item.total}</td>
+          <td style="text-align:center">${item.dateWanted}</td>
+          <td style="text-align:center">${item.soh}</td>
+          <td>${item.notes}</td>
+        </tr>`;
+    });
+
+    return `
+      <!-- PREVIEW HEADER -->
+      <div class="preview-header">
+        <div class="preview-header-top">
+          <div>
+            <div class="preview-hotel-name">Park Inn by Radisson</div>
+            <div class="preview-hotel-sub">Makkah, Saudi Arabia · Procurement Department</div>
+          </div>
+          <div class="preview-doc-info">
+            <div class="preview-doc-title">Purchase Requisition</div>
+            <div class="preview-pr-number">${d.prNumber}</div>
+            <div class="preview-date">Date: ${d.date}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REQUEST DETAILS -->
+      <div class="preview-section-label">Request Details</div>
+      <div class="preview-meta-grid">
+        <div class="preview-meta-item">
+          <div class="preview-meta-label">Requester Name</div>
+          <div class="preview-meta-value">${d.requesterName}</div>
+        </div>
+        <div class="preview-meta-item">
+          <div class="preview-meta-label">Requester Email</div>
+          <div class="preview-meta-value">${d.requesterEmail}</div>
+        </div>
+        <div class="preview-meta-item">
+          <div class="preview-meta-label">Department</div>
+          <div class="preview-meta-value">${d.department}</div>
+        </div>
+        <div class="preview-meta-item">
+          <div class="preview-meta-label">Delivery Location</div>
+          <div class="preview-meta-value">${d.deliveryLocation}</div>
+        </div>
+        <div class="preview-meta-item">
+          <div class="preview-meta-label">Required Delivery Date</div>
+          <div class="preview-meta-value">${d.deliveryDate}</div>
+        </div>
+        <div class="preview-meta-item">
+          <div class="preview-meta-label">Priority Level</div>
+          <div class="preview-meta-value">
+            <span class="priority-badge priority-${d.priority}">${d.priority}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="preview-section-label">Line Items</div>
+      <table class="preview-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item Group</th>
+            <th>Article Description</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>Last Price</th>
+            <th>Total Price</th>
+            <th>Date Wanted</th>
+            <th>SOH</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>${itemRows}</tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6" class="preview-total-label">Grand Total</td>
+            <td class="preview-total-value">SAR ${grand}</td>
+            <td colspan="3"></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <!-- NOTES -->
+      ${d.notes !== '—' ? `
+      <div class="preview-notes">
+        <strong>Additional Notes</strong>
+        ${d.notes}
+      </div>` : ''}
+
+      <!-- SIGNATURES -->
+      <div class="preview-section-label">Authorisation & Signatures</div>
+      <div class="preview-sigs">
+        <div class="preview-sig">
+          <div class="preview-sig-line"></div>
+          <div class="preview-sig-name">Department Head</div>
+          <div class="preview-sig-title">Requesting Authority</div>
+        </div>
+        <div class="preview-sig">
+          <div class="preview-sig-line"></div>
+          <div class="preview-sig-name">Purchasing Manager</div>
+          <div class="preview-sig-title">Procurement Review</div>
+        </div>
+        <div class="preview-sig">
+          <div class="preview-sig-line"></div>
+          <div class="preview-sig-name">Financial Controller</div>
+          <div class="preview-sig-title">Budget Approval</div>
+        </div>
+        <div class="preview-sig">
+          <div class="preview-sig-line"></div>
+          <div class="preview-sig-name">General Manager</div>
+          <div class="preview-sig-title">Final Authorisation</div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="preview-footer">
+        <div class="preview-footer-text">
+          This document is system-generated · Park Inn by Radisson, Makkah<br>
+          Generated: ${d.date} · ${d.prNumber}
+        </div>
+        <div class="preview-footer-stamp">Confidential · Internal Use Only</div>
+      </div>
+    `;
+  }
+
+  function openPreview() {
+    document.getElementById('previewContent').innerHTML = buildPreviewHTML();
+    document.getElementById('previewModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePreview() {
+    document.getElementById('previewModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  function printPR() {
+    const content = buildPreviewHTML();
+    const win = window.open('', '_blank', 'width=900,height=700');
+    win.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>${document.getElementById('prNumber').textContent} — Purchase Requisition</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: 'Inter', sans-serif; padding: 28px; color: #2D3748; }
+          :root {
+            --primary: #1B3A5C;
+            --gold: #C9A84C;
+            --red: #C0392B;
+            --gray-50: #F8F9FA;
+            --gray-400: #9BA5B4;
+            --gray-600: #5A6478;
+            --gray-800: #2D3748;
+            --border: #DDE2EA;
+            --white: #FFFFFF;
+          }
+          .preview-header { border-bottom: 3px solid var(--primary); padding-bottom: 16px; margin-bottom: 20px; }
+          .preview-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+          .preview-hotel-name { font-size: 20px; font-weight: 700; color: var(--primary); }
+          .preview-hotel-sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+          .preview-doc-info { text-align: right; }
+          .preview-doc-title { font-size: 16px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+          .preview-pr-number { font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 4px; }
+          .preview-date { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+          .preview-meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: var(--gray-50); border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 18px; }
+          .preview-meta-label { font-size: 9px; font-weight: 700; color: var(--gray-400); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+          .preview-meta-value { font-size: 12px; font-weight: 500; color: var(--gray-800); }
+          .preview-section-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--primary); border-bottom: 1.5px solid var(--primary); padding-bottom: 4px; margin-bottom: 10px; }
+          .preview-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 18px; }
+          .preview-table thead tr { background: var(--primary); }
+          .preview-table thead th { padding: 7px 8px; color: rgba(255,255,255,0.9); font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-align: left; }
+          .preview-table tbody td { padding: 7px 8px; border-bottom: 1px solid var(--border); }
+          .preview-table tbody tr:nth-child(even) td { background: var(--gray-50); }
+          .preview-table tfoot td { padding: 9px 8px; border-top: 2px solid var(--primary); font-weight: 700; font-size: 12px; }
+          .preview-total-label { text-align: right; color: var(--gray-600); letter-spacing: 1px; text-transform: uppercase; font-size: 10px; }
+          .preview-total-value { color: var(--primary); font-size: 15px; white-space: nowrap; }
+          .preview-notes { background: var(--gray-50); border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 11px; color: var(--gray-600); margin-bottom: 18px; line-height: 1.6; }
+          .preview-notes strong { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 3px; }
+          .preview-sigs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 6px; }
+          .preview-sig { text-align: center; }
+          .preview-sig-line { height: 44px; border-bottom: 1.5px solid var(--gray-400); margin-bottom: 6px; }
+          .preview-sig-name { font-size: 10px; font-weight: 600; color: var(--gray-600); }
+          .preview-sig-title { font-size: 9px; color: var(--gray-400); margin-top: 1px; }
+          .preview-footer { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 18px; display: flex; justify-content: space-between; }
+          .preview-footer-text { font-size: 9px; color: var(--gray-400); }
+          .preview-footer-stamp { font-size: 9px; color: var(--gray-400); letter-spacing: 1px; text-transform: uppercase; }
+          .priority-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 10px; border-radius: 4px; letter-spacing: 1px; }
+          .priority-LOW { background: #D4EDDA; color: #155724; }
+          .priority-MEDIUM { background: #FDEBD0; color: #8B4513; }
+          .priority-HIGH { background: #FDECEA; color: #C0392B; }
+          @media print {
+            body { padding: 16px; }
+            @page { margin: 1cm; size: A4; }
+          }
+        </style>
+      </head>
+      <body>${content}</body>
+      </html>
+    `);
+    win.document.close();
+    win.focus();
+    setTimeout(() => { win.print(); }, 500);
+  }
+
+  // Close modal on overlay click
+  document.getElementById('previewModal').addEventListener('click', function(e) {
+    if (e.target === this) closePreview();
+  });
+
+  // Close modal on ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePreview();
+  });
+</script>
+</body>
+</html>
