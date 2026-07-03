@@ -1445,17 +1445,30 @@
   }
 
   // ── Form Submit ──
-  document.getElementById('prForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+  // Here: send data to n8n webhook
+   const payload = {
+    form: getFormData(),
+    items: getItemRows()
+};
+
+fetch('https://n8n.srv1106977.hstgr.cloud/webhook-test/submit-pr', {method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
 
     const toast = document.getElementById('toast');
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 4000);
-
-    // Here: send data to n8n webhook
-    // fetch('YOUR_N8N_WEBHOOK_URL', { method: 'POST', ... })
-  });
-
+})
+.catch(error => {
+    console.error(error);
+    alert('Failed to submit PR.');
+});
   // ── Init: add first row ──
   addRow();
 
