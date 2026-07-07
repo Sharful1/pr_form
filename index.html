@@ -1477,13 +1477,13 @@ fetch('https://n8n.srv1106977.hstgr.cloud/webhook-test/submit-pr', {method: 'POS
     return {
       prNumber: document.getElementById('prNumber').textContent,
       date: document.getElementById('currentDate').textContent,
-      requesterName: document.querySelector('[name="requesterName"]').value || 'requesterName',
-      requesterEmail: document.querySelector('[name="requesterEmail"]').value || 'requesterEmai',
-      department: document.querySelector('[name="department"]').value || 'department',
-      deliveryLocation: document.querySelector('[name="deliveryLocation"]').value || 'deliveryLocation',
-      deliveryDate: document.querySelector('[name="deliveryDate"]').value || 'deliveryDate',
-      priority: document.getElementById('priorityValue').value || 'MEDIUM',
-      notes: document.querySelector('[name="notes"]').value || 'notes"',
+      requesterName: document.querySelector('[name="requesterName"]').value || '',
+      requesterEmail: document.querySelector('[name="requesterEmail"]').value || '',
+      department: document.querySelector('[name="department"]').value || '',
+      deliveryLocation: document.querySelector('[name="deliveryLocation"]').value || '',
+      deliveryDate: document.querySelector('[name="deliveryDate"]').value || '',
+      priority: document.getElementById('priorityValue').value || '',
+      notes: document.querySelector('[name="notes"]').value || '"',
     };
   }
 
